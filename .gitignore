@@ -31,5 +31,5 @@ bun.lockb
 # Cache
 .cache/
 
-# Build output (root level only)
-/docs/
+# Build output
+dist/
