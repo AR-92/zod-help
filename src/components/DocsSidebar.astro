@@ -1,0 +1,68 @@
+---
+// DocsSidebar component - Navigation sidebar for help center
+import { LifeBuoy } from 'lucide-astro';
+
+interface Props {
+  groupedDocs: Record<string, any[]>;
+  currentSlug?: string;
+}
+
+const { groupedDocs, currentSlug = '' } = Astro.props;
+
+// Sort categories in order
+const categoryOrder = [
+  'GETTING STARTED',
+  'ACCOUNT & BILLING',
+  'FEATURES',
+  'TROUBLESHOOTING',
+  'FAQS',
+  'ADVANCED',
+];
+---
+
+<nav class="flex flex-col gap-10">
+  <ul class="flex flex-col gap-2">
+    <li>
+      <a
+        href="/"
+        class:list={[
+          "group inline-flex items-center gap-3 text-base/8 text-gray-600 sm:text-sm/7 dark:text-gray-300 hover:text-gray-950 dark:hover:text-white",
+          currentSlug === '' ? "aria-[current]:font-semibold aria-[current]:text-gray-950 dark:aria-[current]:text-white" : ""
+        ]}
+      >
+        <LifeBuoy class="size-5 sm:size-4" />
+        Help Center
+      </a>
+    </li>
+  </ul>
+
+  {categoryOrder.filter(cat => groupedDocs[cat]).map((category) => (
+    <div class="flex flex-col gap-3" data-autoscroll="true">
+      <h3 class="font-mono text-sm/6 font-medium tracking-widest text-gray-500 uppercase sm:text-xs/6 dark:text-gray-400">
+        {category}
+      </h3>
+      <ul class="flex flex-col gap-2 border-l dark:border-[color-mix(in_oklab,_var(--color-gray-950),white_20%)] border-[color-mix(in_oklab,_var(--color-gray-950),white_90%)]">
+        {groupedDocs[category].map((doc) => {
+          const isActive = doc.slug === currentSlug;
+          return (
+            <li class="-ml-px flex flex-col items-start gap-2">
+              <a
+                href={`/${doc.slug}`}
+                class:list={[
+                  "inline-block border-l border-transparent text-base/8 text-gray-600 hover:border-gray-950/25 hover:text-gray-950 sm:text-sm/6 dark:text-gray-300 dark:hover:border-white/25 dark:hover:text-white pl-5 sm:pl-4",
+                  isActive
+                    ? "border-gray-950 font-semibold text-gray-950 dark:border-white dark:text-white"
+                    : ""
+                ]}
+                type="button"
+                data-headlessui-state=""
+              >
+                {doc.data.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  ))}
+</nav>

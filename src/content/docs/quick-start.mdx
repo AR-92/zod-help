@@ -1,0 +1,67 @@
+---
+title: "Quick Start Tutorial"
+description: "Get up and running with Zod in under 5 minutes"
+category: "GETTING STARTED"
+order: 3
+---
+
+# Quick Start Tutorial
+
+Get your first Zod agent running in under 5 minutes with this quick start tutorial.
+
+## Step 1: Initialize Your Project
+
+```bash
+# Create a new directory
+mkdir my-zod-project
+cd my-zod-project
+
+# Initialize Zod
+npx zod init
+```
+
+## Step 2: Create Your First Agent
+
+Create a file called `agent.js`:
+
+```javascript
+import { Agent } from '@zod/harness';
+
+const agent = new Agent({
+  name: 'MyFirstAgent',
+  instructions: 'You are a helpful assistant that answers questions about technology.',
+  model: 'gpt-4'
+});
+
+agent.start();
+```
+
+## Step 3: Run Your Agent
+
+```bash
+npx zod run agent.js
+```
+
+Your agent is now running and ready to receive tasks!
+
+## Step 4: Test Your Agent
+
+Open another terminal and send a test message:
+
+```bash
+npx zod message "What is artificial intelligence?"
+```
+
+## What's Next?
+
+- Learn about [agent configuration](/agents/configuration)
+- Explore [multi-agent systems](/multi-agent-systems)
+- Add [plugins and skills](/plugins/getting-started)
+- Deploy to production with [Zod Studio](/studio/overview)
+
+## Tips for Success
+
+- Start with simple agents and add complexity gradually
+- Use the `--verbose` flag to see detailed logs
+- Check the logs directory for execution history
+- Join our community for support and ideas

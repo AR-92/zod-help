@@ -1,0 +1,178 @@
+---
+title: "Multi-Agent Systems"
+description: "Learn how to create systems where multiple agents collaborate"
+category: "ADVANCED"
+order: 1
+---
+
+# Multi-Agent Systems
+
+Create powerful systems where multiple agents work together to solve complex problems.
+
+## What are Multi-Agent Systems?
+
+Multi-agent systems allow you to create teams of agents that:
+- Collaborate on complex tasks
+- Specialize in different domains
+- Communicate and share information
+- Coordinate actions autonomously
+
+## Creating a Multi-Agent System
+
+### Basic Setup
+
+```javascript
+import { MultiAgentSystem } from '@zod/harness';
+
+const system = new MultiAgentSystem({
+  name: 'ResearchTeam',
+  agents: [
+    {
+      name: 'Researcher',
+      instructions: 'You research topics and gather information.',
+      model: 'gpt-4'
+    },
+    {
+      name: 'Analyst',
+      instructions: 'You analyze data and draw conclusions.',
+      model: 'gpt-4'
+    },
+    {
+      name: 'Writer',
+      instructions: 'You write clear reports based on analysis.',
+      model: 'gpt-4'
+    }
+  ],
+  communication: 'sequential' // or 'parallel', 'hierarchical'
+});
+
+system.start();
+```
+
+## Communication Patterns
+
+### Sequential
+Agents work one after another, passing results:
+
+```
+User → Researcher → Analyst → Writer → User
+```
+
+### Parallel
+All agents work simultaneously:
+
+```
+User → Researcher ─┐
+User → Analyst ─────┤→ Coordinator → User
+User → Writer ──────┘
+```
+
+### Hierarchical
+One agent coordinates others:
+
+```
+         Coordinator
+        /     |     \
+Researcher Analyst Writer
+```
+
+## Agent Roles
+
+### Defining Roles
+
+```javascript
+const system = new MultiAgentSystem({
+  name: 'SupportTeam',
+  agents: [
+    {
+      name: 'TriageAgent',
+      role: 'coordinator',
+      instructions: 'Route incoming requests to appropriate specialists.',
+      model: 'gpt-4'
+    },
+    {
+      name: 'TechnicalAgent',
+      role: 'specialist',
+      instructions: 'Handle technical support questions.',
+      model: 'gpt-4'
+    },
+    {
+      name: 'BillingAgent',
+      role: 'specialist',
+      instructions: 'Handle billing and account questions.',
+      model: 'gpt-4'
+    }
+  ]
+});
+```
+
+## Best Practices
+
+1. **Clear role definitions** - Each agent should have a specific purpose
+2. **Efficient communication** - Choose the right pattern for your use case
+3. **Error handling** - Handle failures gracefully
+4. **Monitoring** - Track system performance
+5. **Testing** - Test individual agents and the system as a whole
+
+## Use Cases
+
+### Customer Support
+- Triage agent routes requests
+- Specialized agents handle different issue types
+- Escalation to human when needed
+
+### Research & Analysis
+- Researcher gathers information
+- Analyst identifies patterns
+- Writer creates summary
+
+### Content Creation
+- Idea generator brainstorms
+- Writer creates content
+- Editor reviews and refines
+
+## Advanced Configuration
+
+### Custom Communication Protocols
+
+```javascript
+const system = new MultiAgentSystem({
+  name: 'CustomSystem',
+  agents: [...],
+  communication: {
+    type: 'custom',
+    protocol: (messages, context) => {
+      // Your custom logic
+      return nextAgent;
+    }
+  }
+});
+```
+
+### Shared Memory
+
+```javascript
+const system = new MultiAgentSystem({
+  name: 'SharedMemorySystem',
+  agents: [...],
+  sharedMemory: {
+    enabled: true,
+    maxSize: 1000, // messages
+    retention: '24h'
+  }
+});
+```
+
+## Monitoring and Debugging
+
+View system performance in Zod Studio:
+- Message flow visualization
+- Agent performance metrics
+- Error rates and logs
+- Resource usage
+
+## Next Steps
+
+- Explore [Zod Studio](/studio/overview) for visual management
+- Learn about [plugins](/plugin-system) to extend capabilities
+- Check out [advanced examples](/examples/multi-agent)

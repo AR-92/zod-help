@@ -1,0 +1,140 @@
+---
+title: "Agent Runtime Errors"
+description: "Diagnosing and fixing agent execution problems"
+category: "TROUBLESHOOTING"
+order: 2
+---
+
+# Agent Runtime Errors
+
+How to diagnose and resolve issues when running agents.
+
+## Issue: Agent crashes on startup
+
+### Common Causes
+
+1. **Invalid configuration**
+2. **Missing API keys**
+3. **Incorrect model name**
+4. **Plugin errors**
+
+### Debugging Steps
+
+**Step 1: Enable verbose logging**
+```bash
+npx zod run agent.js --verbose
+```
+
+**Step 2: Check configuration**
+```javascript
+// Verify your agent config
+const agent = new Agent({
+  name: 'TestAgent',
+  instructions: 'You are a test agent.',
+  model: 'gpt-4' // Verify this is correct
+});
+```
+
+**Step 3: Test with minimal config**
+```javascript
+const agent = new Agent({
+  name: 'SimpleAgent',
+  instructions: 'Say hello.',
+  model: 'gpt-3.5-turbo'
+});
+
+agent.start();
+```
+
+## Issue: Agent responds slowly
+
+### Solutions
+
+**Solution 1: Check model choice**
+Larger models take longer to respond. Consider:
+- Using gpt-3.5-turbo instead of gpt-4
+- Enabling caching for common queries
+
+**Solution 2: Optimize instructions**
+Long instructions can slow down responses. Keep them concise.
+
+**Solution 3: Increase timeout**
+```javascript
+const agent = new Agent({
+  name: 'Agent',
+  instructions: '...',
+  model: 'gpt-4',
+  timeout: 60000 // 60 seconds
+});
+```
+
+## Issue: Agent gives incorrect responses
+
+### Solutions
+
+**Solution 1: Refine instructions**
+Be more specific in your instructions:
+```javascript
+// Vague
+instructions: 'Help with code'
+
+// Specific
+instructions: 'You are a JavaScript expert. Review code for bugs, suggest improvements, and explain your reasoning.'
+```
+
+**Solution 2: Adjust temperature**
+```javascript
+// More deterministic
+temperature: 0.3
+
+// More creative
+temperature: 0.9
+```
+
+**Solution 3: Add examples**
+```javascript
+instructions: `You are a helpful assistant.
+
+Example:
+User: What is 2+2?
+You: 2+2 equals 4.
+
+Always follow this format in your responses.`
+```
+
+## Issue: Memory leaks
+
+### Symptoms
+- Agent uses increasing amounts of memory
+- Performance degrades over time
+- Eventually crashes
+
+### Solutions
+
+**Solution 1: Disable memory**
+```javascript
+const agent = new Agent({
+  name: 'Agent',
+  instructions: '...',
+  model: 'gpt-4',
+  memory: false // Disable conversation memory
+});
+```
+
+**Solution 2: Limit context**
+```javascript
+const agent = new Agent({
+  name: 'Agent',
+  instructions: '...',
+  model: 'gpt-4',
+  maxHistoryMessages: 10 // Limit stored messages
+});
+```
+
+## Getting Help
+
+For persistent issues:
+1. Collect logs from `logs/` directory
+2. Note your Zod version: `npx zod --version`
+3. Create a minimal reproduction
+4. Open an issue on GitHub

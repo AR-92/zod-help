@@ -1,0 +1,105 @@
+---
+title: "Frequently Asked Questions"
+description: "Answers to the most commonly asked questions about Zod"
+category: "FAQS"
+order: 1
+---
+
+# Frequently Asked Questions
+
+Quick answers to common questions about the Zod platform.
+
+## General Questions
+
+### What is Zod?
+Zod is an open-source AI agent platform that lets you create, manage, and deploy intelligent agents for automation, customer support, data analysis, and more.
+
+### Is Zod free?
+Zod offers a free tier with basic features. We also have Pro and Enterprise plans with additional capabilities. See our [pricing page](/billing-plans) for details.
+
+### What AI models does Zod support?
+Zod supports multiple models including:
+- GPT-3.5 Turbo
+- GPT-4
+- Custom models (Enterprise)
+- And more being added regularly
+
+### Do I need coding experience?
+Basic coding knowledge helps, but Zod Studio provides a visual interface that makes it easy to create and manage agents without extensive programming.
+
+## Technical Questions
+
+### How do I update Zod?
+```bash
+npm update @zod/harness
+```
+
+### Can I use Zod offline?
+No, Zod requires an internet connection to communicate with AI model APIs.
+
+### How do I backup my agents?
+Export your agents from Zod Studio or use the CLI:
+```bash
+npx zod export > backup.json
+```
+
+### Can I import agents from other platforms?
+Yes, Zod supports importing from:
+- LangChain
+- AutoGPT
+- Custom JSON formats
+
+Use: `npx zod import file.json`
+
+## Account & Billing
+
+### How do I cancel my subscription?
+Go to Settings > Billing > Cancel Subscription. Your access continues until the end of the billing period.
+
+### Can I switch plans anytime?
+Yes! Upgrades are immediate, downgrades take effect next billing cycle.
+
+### What happens if I exceed my message limit?
+- **Free tier:** Agents pause until next cycle
+- **Pro tier:** Overage charges apply
+- **Enterprise:** Custom arrangements
+
+## Features
+
+### How many agents can I create?
+- **Free:** 3 agents
+- **Pro:** Unlimited
+- **Enterprise:** Unlimited
+
+### Can agents work together?
+Yes! Zod supports multi-agent systems where agents can collaborate and communicate. See [multi-agent systems](/multi-agent-systems) for details.
+
+### Do agents remember previous conversations?
+Yes, when memory is enabled. Agents can maintain conversation history across sessions.
+
+### Can I customize agent behavior?
+Absolutely! You control:
+- Instructions and personality
+- Temperature and creativity level
+- Available plugins and tools
+- Response formatting
+- Error handling
+
+## Support
+
+### How do I get help?
+- Browse this help center
+- Check our [documentation](https://docs.zodagent.com)
+- Join our community forums
+- Open a GitHub issue
+- Contact support (Pro/Enterprise)
+
+### Can I contribute to Zod?
+Yes! Zod is open-source. Contribute on [GitHub](https://github.com/AR-92/zod-harness).
+
+### Where can I report bugs?
+Open an issue on our [GitHub repository](https://github.com/AR-92/zod-harness/issues).
+
+## Still have questions?
+
+Contact us at support@zodagent.com or open an issue on GitHub. We're here to help!

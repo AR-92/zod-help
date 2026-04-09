@@ -1,0 +1,80 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+import DocsTableOfContents from '../components/DocsTableOfContents.astro';
+import type { GetStaticPaths } from 'astro';
+import { extractHeadings, renderTocItem } from '../utils/extractHeadings';
+import { ChevronLeft, ChevronRight } from 'lucide-astro';
+import { getAllDocs, getPrevNextDocs, getGroupedDocs } from '../utils/docs';
+
+export const getStaticPaths = (async () => {
+  const docs = await getAllDocs();
+  return docs.map((doc) => ({
+    params: { slug: doc.slug },
+    props: { doc },
+  }));
+}) satisfies GetStaticPaths;
+
+const { doc } = Astro.props;
+const { Content } = await doc.render();
+
+const headings = extractHeadings(doc.body.raw || doc.body);
+const { prevDoc, nextDoc } = await getPrevNextDocs(doc.slug);
+const groupedDocs = await getGroupedDocs();
+---
+
+<DocsLayout title={`${doc.data.title} - Zod Help Center`} currentSlug={doc.slug} groupedDocs={groupedDocs}>
+  <p class="flex items-center gap-2 font-mono text-xs/6 font-medium tracking-widest text-gray-600 uppercase dark:text-gray-400" data-section="true">
+    {doc.data.category}
+  </p>
+
+  <h1 data-title="true" class="mt-2 text-3xl font-medium tracking-tight text-gray-950 dark:text-white">
+    {doc.data.title}
+  </h1>
+
+  {doc.data.description && (
+    <p data-description="true" class="mt-6 text-base/7 text-gray-700 dark:text-gray-400">
+      {doc.data.description}
+    </p>
+  )}
+
+  <div class="prose mt-10" data-content="true">
+    <article class="prose prose-lg prose-slate dark:prose-invert max-w-none">
+      <Content />
+    </article>
+
+    {(prevDoc || nextDoc) && (
+      <footer class="mt-16 text-sm leading-6">
+        <div class="flex items-center justify-between gap-2 text-gray-700 dark:text-gray-200">
+          {prevDoc ? (
+            <a
+              href={`/${prevDoc.slug}`}
+              class="group flex items-center gap-2 hover:text-gray-900 dark:hover:text-white"
+            >
+              <ChevronLeft class="size-4" />
+              <span>{prevDoc.data.title}</span>
+            </a>
+          ) : <div></div>}
+          {nextDoc ? (
+            <a
+              href={`/${nextDoc.slug}`}
+              class="group flex items-center gap-2 hover:text-gray-900 dark:hover:text-white"
+            >
+              <span>{nextDoc.data.title}</span>
+              <ChevronRight class="size-4" />
+            </a>
+          ) : <div></div>}
+        </div>
+      </footer>
+    )}
+  </div>
+
+  <div slot="toc">
+    {headings.length > 0 && (
+      <DocsTableOfContents>
+        {headings.map(heading => (
+          <Fragment set:html={renderTocItem(heading)} />
+        ))}
+      </DocsTableOfContents>
+    )}
+  </div>
+</DocsLayout>

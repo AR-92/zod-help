@@ -1,0 +1,39 @@
+---
+// Navbar component - Help center site navigation
+import { ChevronDown, Search, Ellipsis } from 'lucide-astro';
+---
+
+<div class="fixed inset-x-0 top-0 z-10 border-b border-black/5 dark:border-white/10">
+  <div class="bg-white dark:bg-gray-950">
+    <div class="flex h-14 items-center justify-between gap-8 px-4 sm:px-6">
+      <div class="flex items-center gap-4">
+        <a class="shrink-0" aria-label="Home" href="/">
+          <img src="/favicon.svg" alt="Zod Help" class="h-5" />
+        </a>
+        <span class="text-lg font-semibold text-gray-950 dark:text-white">zod help</span>
+        <button class="flex items-center gap-0.5 rounded-2xl bg-gray-950/5 py-0.5 pr-1.5 pl-2.5 text-xs/5 font-medium text-gray-950 tabular-nums hover:bg-gray-950/7.5 dark:bg-white/10 dark:text-white dark:hover:bg-white/12.5" aria-label="Select version" type="button">
+          v1.0
+          <ChevronDown class="size-4 text-gray-400" />
+        </button>
+      </div>
+      <div class="flex items-center gap-6 max-md:hidden">
+        <button type="button" class="inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">
+          <Search class="-ml-0.5 size-4 text-gray-600 dark:text-gray-500" />
+          <kbd class="hidden font-sans text-xs/4 text-gray-500 dark:text-gray-400 [.os-macos_&]:block">⌘K</kbd>
+          <kbd class="hidden font-sans text-xs/4 text-gray-500 not-[.os-macos_&]:block dark:text-gray-400">Ctrl&nbsp;K</kbd>
+        </button>
+        <a class="text-sm/6 text-gray-950 dark:text-white hover:opacity-80 transition-opacity" href="/">Help Center</a>
+        <a class="text-sm/6 text-gray-950 dark:text-white hover:opacity-80 transition-opacity" href="https://zodagent.com" target="_blank">Main Site</a>
+      </div>
+      <div class="flex items-center gap-2.5 md:hidden">
+        <button type="button" aria-label="Search" class="inline-grid size-7 place-items-center rounded-md">
+          <Search class="size-4" />
+        </button>
+        <button type="button" class="relative inline-grid size-7 place-items-center rounded-md text-gray-950 hover:bg-gray-950/5 dark:text-white dark:hover:bg-white/10" aria-label="Navigation">
+          <span class="absolute top-1/2 left-1/2 size-11 -translate-1/2 pointer-fine:hidden"></span>
+          <Ellipsis class="size-4" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

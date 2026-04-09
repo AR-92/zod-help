@@ -1,0 +1,111 @@
+---
+title: "Creating Agents"
+description: "Learn how to create and configure AI agents in Zod"
+category: "FEATURES"
+order: 1
+---
+
+# Creating Agents
+
+Agents are the core building blocks of the Zod platform. Learn how to create and configure them.
+
+## What is an Agent?
+
+An agent is an AI-powered entity that can:
+- Understand and respond to messages
+- Execute tasks autonomously
+- Interact with external systems
+- Learn from feedback
+- Collaborate with other agents
+
+## Basic Agent Creation
+
+### Simple Agent
+
+```javascript
+import { Agent } from '@zod/harness';
+
+const agent = new Agent({
+  name: 'CustomerSupport',
+  instructions: 'You are a helpful customer support agent.',
+  model: 'gpt-4'
+});
+```
+
+### Agent with Configuration
+
+```javascript
+const agent = new Agent({
+  name: 'DataAnalyst',
+  instructions: 'You are a data analysis expert.',
+  model: 'gpt-4',
+  temperature: 0.7,
+  maxTokens: 2000,
+  plugins: ['csv-parser', 'chart-generator'],
+  memory: true
+});
+```
+
+## Agent Configuration Options
+
+### Required Fields
+
+- **name:** Unique identifier for your agent
+- **instructions:** System prompt that defines agent behavior
+- **model:** AI model to use (gpt-3.5-turbo, gpt-4, etc.)
+
+### Optional Fields
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| temperature | number | 0.7 | Creativity level (0-1) |
+| maxTokens | number | 4096 | Maximum response length |
+| plugins | array | [] | List of plugins to enable |
+| memory | boolean | false | Enable conversation memory |
+| timeout | number | 30000 | Request timeout in ms |
+| retries | number | 3 | Number of retry attempts |
+
+## Advanced Configuration
+
+### Custom Models
+
+You can use custom models by specifying the model endpoint:
+
+```javascript
+const agent = new Agent({
+  name: 'CustomAgent',
+  instructions: 'Using custom model',
+  model: 'custom-model-name',
+  modelEndpoint: 'https://your-api.com/v1/chat'
+});
+```
+
+### Agent Templates
+
+Save time with pre-built templates:
+
+```bash
+npx zod template list
+npx zod template use customer-support
+```
+
+Available templates:
+- Customer Support
+- Code Assistant
+- Data Analyst
+- Content Writer
+- Research Assistant
+
+## Best Practices
+
+1. **Be specific with instructions** - Clear instructions lead to better performance
+2. **Start simple** - Begin with basic config and add complexity
+3. **Test thoroughly** - Use the test harness before deployment
+4. **Monitor performance** - Track usage and accuracy metrics
+5. **Update regularly** - Refine instructions based on feedback
+
+## Next Steps
+
+- Learn about [multi-agent systems](/multi-agent-systems)
+- Add [plugins and tools](/plugins/getting-started)
+- Deploy with [Zod Studio](/studio/overview)

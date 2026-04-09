@@ -1,0 +1,147 @@
+---
+title: "Common Installation Issues"
+description: "Solutions to frequently encountered installation problems"
+category: "TROUBLESHOOTING"
+order: 1
+---
+
+# Common Installation Issues
+
+Solutions to the most common problems users encounter when installing Zod.
+
+## Issue: "Command not found: zod"
+
+### Problem
+After installation, running `npx zod` returns "command not found".
+
+### Solutions
+
+**Solution 1: Verify Installation**
+```bash
+npm list @zod/harness
+```
+
+If not installed, run:
+```bash
+npm install @zod/harness
+```
+
+**Solution 2: Check Node Version**
+```bash
+node --version
+```
+
+Zod requires Node.js 18 or higher. Upgrade if needed:
+```bash
+nvm install 18
+nvm use 18
+```
+
+**Solution 3: Clear npm Cache**
+```bash
+npm cache clean --force
+npm install @zod/harness
+```
+
+## Issue: "Permission denied" errors
+
+### Problem
+Installation fails with permission errors.
+
+### Solutions
+
+**Solution 1: Use npx**
+Instead of global install, use npx:
+```bash
+npx zod init
+```
+
+**Solution 2: Fix npm Permissions**
+```bash
+sudo chown -R $(whoami) ~/.npm
+```
+
+**Solution 3: Use a Node Version Manager**
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+nvm install 18
+```
+
+## Issue: Dependency conflicts
+
+### Problem
+Installation fails due to conflicting dependencies.
+
+### Solutions
+
+**Solution 1: Update Dependencies**
+```bash
+npm update
+npm install @zod/harness
+```
+
+**Solution 2: Clean Install**
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**Solution 3: Use --legacy-peer-deps**
+```bash
+npm install @zod/harness --legacy-peer-deps
+```
+
+## Issue: "Module not found" errors
+
+### Problem
+Running Zod throws module not found errors.
+
+### Solutions
+
+**Solution 1: Reinstall Dependencies**
+```bash
+rm -rf node_modules
+npm install
+```
+
+**Solution 2: Check imports**
+Ensure your imports are correct:
+```javascript
+import { Agent } from '@zod/harness'; // Correct
+```
+
+## Issue: Slow installation
+
+### Problem
+Installation takes an unusually long time.
+
+### Solutions
+
+**Solution 1: Use Bun instead of npm**
+```bash
+curl -fsSL https://bun.sh/install | bash
+bun install @zod/harness
+```
+
+Bun is significantly faster than npm.
+
+**Solution 2: Check Network**
+- Ensure stable internet connection
+- Try a different network if possible
+- Check if npm registry is accessible:
+```bash
+npm ping
+```
+
+## Still Having Issues?
+
+If none of these solutions work:
+
+1. Check our [GitHub Issues](https://github.com/AR-92/zod-harness/issues)
+2. Create a new issue with:
+   - Your OS and version
+   - Node.js version
+   - Full error message
+   - Steps to reproduce
+
+We're here to help!

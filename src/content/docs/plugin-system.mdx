@@ -1,0 +1,145 @@
+---
+title: "Plugin System"
+description: "Extend agent capabilities with Zod's plugin ecosystem"
+category: "FEATURES"
+order: 2
+---
+
+# Plugin System
+
+Plugins extend the capabilities of your agents by adding new tools, integrations, and functionality.
+
+## What are Plugins?
+
+Plugins are modular extensions that allow agents to:
+- Access external APIs
+- Read and write files
+- Execute code
+- Connect to databases
+- Integrate with third-party services
+
+## Built-in Plugins
+
+Zod comes with several built-in plugins:
+
+### File Operations
+- **file-reader:** Read files from disk
+- **file-writer:** Write files to disk
+- **directory-lister:** List directory contents
+
+### Web Access
+- **web-scraper:** Extract content from URLs
+- **api-client:** Make HTTP requests
+- **browser-automation:** Control web browsers
+
+### Code Execution
+- **code-runner:** Execute code in various languages
+- **sql-executor:** Run database queries
+- **git-operations:** Perform Git commands
+
+## Installing Plugins
+
+### From Registry
+
+```bash
+npx zod plugin install plugin-name
+```
+
+### From GitHub
+
+```bash
+npx zod plugin install github:username/repo
+```
+
+### Local Development
+
+```bash
+npx zod plugin link ./path/to/plugin
+```
+
+## Using Plugins in Agents
+
+```javascript
+const agent = new Agent({
+  name: 'WebResearcher',
+  instructions: 'You are a web research assistant.',
+  model: 'gpt-4',
+  plugins: [
+    {
+      name: 'web-scraper',
+      config: { timeout: 10000 }
+    },
+    {
+      name: 'api-client',
+      config: { baseUrl: 'https://api.example.com' }
+    }
+  ]
+});
+```
+
+## Creating Custom Plugins
+
+Create a file `my-plugin.js`:
+
+```javascript
+import { Plugin } from '@zod/harness';
+
+export class MyPlugin extends Plugin {
+  name = 'my-plugin';
+  
+  async execute(input) {
+    // Your plugin logic here
+    return { result: 'Processed: ' + input };
+  }
+  
+  async validate(input) {
+    // Validate input
+    return true;
+  }
+}
+```
+
+## Plugin Configuration
+
+Each plugin can have configuration options:
+
+```javascript
+{
+  name: 'database-connector',
+  config: {
+    host: 'localhost',
+    port: 5432,
+    database: 'mydb',
+    username: 'user',
+    password: 'pass'
+  }
+}
+```
+
+## Security Considerations
+
+- **Permissions:** Plugins run with specific permissions
+- **Sandboxing:** Code execution happens in isolated environments
+- **Rate Limiting:** Prevent abuse with built-in rate limits
+- **Validation:** All inputs are validated before execution
+
+## Troubleshooting
+
+### Plugin Not Loading
+
+- Check that the plugin is installed
+- Verify the plugin name matches exactly
+- Review plugin logs for errors
+
+### Plugin Errors
+
+- Check the error message for details
+- Verify configuration is correct
+- Ensure all dependencies are installed
+- Update the plugin to the latest version
+
+## Plugin Marketplace
+
+Browse and discover new plugins in the [Zod Plugin Marketplace](https://plugins.zodagent.com).
+
+Submit your own plugins to share with the community!
